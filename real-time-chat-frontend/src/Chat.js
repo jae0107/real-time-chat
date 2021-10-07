@@ -63,7 +63,11 @@ const Chat = () => {
                     <button className='chat__inputButton' onClick={sendMessage} disabled={!channelId} type='submit'>Send Message</button>
                 </form>
 
-                
+                <div className="chat__inputIcon">
+                    <CradGiftcardIcon fontSize='large' />
+                    <GifIcon fontSize='large' />
+                    <EmojiEmoticonsIcon fontSize='large' />
+                </div>
             </div>
         </div>
     )
