@@ -56,7 +56,15 @@ const Chat = () => {
                 ))}
             </div>
 
-            
+            <div className="chat__input">
+                <AddCircleIcon fontSize='large' />
+                <form>
+                    <input type="text" disabled={!channelId} value={input} onChange={(e) => setInput(e.target.value)} placeholder={`Message #${channelName}`} />
+                    <button className='chat__inputButton' onClick={sendMessage} disabled={!channelId} type='submit'>Send Message</button>
+                </form>
+
+                
+            </div>
         </div>
     )
 }
