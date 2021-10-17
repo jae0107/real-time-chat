@@ -38,7 +38,6 @@ const Sidebar = () => {
             db.collection('channels').add({
                 channelName: channelName
             })
-
         }
     }
 
