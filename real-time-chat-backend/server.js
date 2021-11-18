@@ -48,8 +48,16 @@ app.get('/get/channelList', (req, res) => {
             res.status(500).send(err);
         } else {
             let channels = [];
-            
-            res.status(200).send(data);
+
+            data.map((channelData) => {
+                const channelInfo = {
+                    id: channelData._id,
+                    name: channelData.channelName
+                }
+                channels.push(channelInfo);
+            });
+
+            res.status(200).send(channels);
         }
     });
 });
