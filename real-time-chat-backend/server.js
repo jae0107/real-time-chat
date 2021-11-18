@@ -1,11 +1,14 @@
 import express from 'express';
 import  mongoose  from 'mongoose';
+import cors from 'cors';
 
 // app config
 const app = express();
 const port = process.env.PORT || 8002;
 
 // middlewares
+app.use(express.json());
+app.use(cors());
 
 // db config
 
