@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import mongoData from "./mongoData.js";
 
 // app config
 const app = express();
@@ -11,16 +12,47 @@ app.use(express.json());
 app.use(cors());
 
 // db config
-const mongoURI = 'mongodb+srv://ghjgjh:Jh120301!!@cluster0.vo0sy.mongodb.net/realTimeChat?retryWrites=true&w=majority';
+const mongoURI = 'mongodb+srv://admin:0m2ui6rQnotuPykP@cluster0.vo0sy.mongodb.net/realTimeChat?retryWrites=true&w=majority';
 
 mongoose.connect(mongoURI, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+/*mongoose.connect(
+    mongoURI,
+    async(err)=>{
+        if(err) throw err;
+        console.log("conncted to db")
+    }
+)*/
 
 // api routers
 app.get('/', (req, res) => res.status(200).send('hello world'));
+
+app.post('/new/channel', (req, res) => {
+    const dbData = req.body;
+
+    mongoData.create(dbData, (err, data) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(201).send(data);
+        }
+    });
+});
+
+app.get('/get/channelList', (req, res) => {
+    mongoData.find((err, data) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            let channels = [];
+            
+            res.status(200).send(data);
+        }
+    });
+});
 
 // listen
 app.listen(port, () => console.log(`listening on localhost:${port}`));
