@@ -63,12 +63,9 @@ app.get('/get/channelList', (req, res) => {
 });
 
 app.post('/new/message', (req, res) => {
-    const id = req.query.id;
-    const newMessage = req.body;
-
     mongoData.updateOne(
-        {_id: query.id},
-        {$push: {conversation: req.body}},
+        { _id: req.query.id },
+        { $push: { conversation: req.body } },
         (err, data) => {
             if (err) {
                 console.log('Error saving message...');
@@ -82,7 +79,15 @@ app.post('/new/message', (req, res) => {
     )
 });
 
-
+app.get('/get/data', (req, res) => {
+    mongoData.find((err, data) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(data);
+        }
+    });
+});
 
 // listen
 app.listen(port, () => console.log(`listening on localhost:${port}`));
