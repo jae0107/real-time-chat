@@ -89,5 +89,17 @@ app.get('/get/data', (req, res) => {
     });
 });
 
+app.get('/get/conversation', (req, res) => {
+    const id = req.query.id;
+
+    mongoData.find({ _id: id }, (err, data) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(data);
+        }
+    });
+});
+
 // listen
 app.listen(port, () => console.log(`listening on localhost:${port}`));
