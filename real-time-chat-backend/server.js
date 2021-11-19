@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { query } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import mongoData from "./mongoData.js";
@@ -61,6 +61,28 @@ app.get('/get/channelList', (req, res) => {
         }
     });
 });
+
+app.post('/new/message', (req, res) => {
+    const id = req.query.id;
+    const newMessage = req.body;
+
+    mongoData.updateOne(
+        {_id: query.id},
+        {$push: {conversation: req.body}},
+        (err, data) => {
+            if (err) {
+                console.log('Error saving message...');
+                console.log(err);
+                res.status(500).send(err);
+
+            } else {
+                res.status(201).send(data);
+            }
+        }
+    )
+});
+
+
 
 // listen
 app.listen(port, () => console.log(`listening on localhost:${port}`));
