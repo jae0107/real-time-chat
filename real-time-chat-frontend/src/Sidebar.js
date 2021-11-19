@@ -64,7 +64,7 @@ const Sidebar = () => {
                 <div className="sidebar__channelsList">
                     {
                         channels.map(channel => (
-                            <SidebarChannel key={channel.id} id={channel.id} channelName={channel.channelName} />
+                            <SidebarChannel key={channel.id} id={channel.id} channelName={channel.name} />
                         ))
                     }
                 </div>
