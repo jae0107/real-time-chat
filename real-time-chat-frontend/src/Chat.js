@@ -14,6 +14,11 @@ import { useEffect } from 'react'
 import db from './firebase'
 import firebase from 'firebase'
 import axios from './axios'
+import Pusher from 'pusher-js'
+
+const pusher = new Pusher('d2a9315a17a092f816e8', {
+    cluster: 'ap4'
+});
 
 const Chat = () => {
     const user = useSelector(selectUser)
@@ -37,6 +42,11 @@ const Chat = () => {
             })
         }*/
         getConversation(channelId)
+
+        const channel = pusher.subscribe('conversation');
+        channel.bind('newMessage', function(data) {
+            getConversation(channelId)
+        });
 
     }, [channelId])
 
